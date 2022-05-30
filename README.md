@@ -22,7 +22,7 @@ Be sure to configure a **name**, **description**, and **image** for your NFT dro
 
 ### 2. Configure the styles to your branding
 
-You can fully customize the colors and style of this temmplate by editing the values in the [`globals.css`](/styles/globals.css) file.
+You can fully customize the colors and style of this template by editing the values in the [`globals.css`](/styles/globals.css) file.
 
 You can configure:
 
