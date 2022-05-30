@@ -1,8 +1,15 @@
-import { ChainId, useNetwork, useNFTDrop } from "@thirdweb-dev/react";
+import {
+  ChainId,
+  useClaimedNFTSupply,
+  useContractMetadata,
+  useNetwork,
+  useNFTDrop,
+  useUnclaimedNFTSupply,
+} from "@thirdweb-dev/react";
 import { useNetworkMismatch } from "@thirdweb-dev/react";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../styles/Theme.module.css";
 
 // Put Your NFT Drop Contract address from the dashboard here
@@ -17,28 +24,14 @@ const Home: NextPage = () => {
 
   const [claiming, setClaiming] = useState<boolean>(false);
 
-  const [contractMetadata, setMetadata] = useState<{
-    name: string;
-    description?: string | undefined;
-    image?: string | undefined;
-  }>();
+  // Load contract metadata
+  const { data: contractMetadata } = useContractMetadata(
+    myNftDropContractAddress
+  );
 
-  const [totalSupply, setTotalSupply] = useState<number>();
-  const [claimedSupply, setClaimedSupply] = useState<number>();
-
-  useEffect(() => {
-    (async () => {
-      const claimed = await nftDrop?.totalClaimedSupply();
-      const totalsupply = await nftDrop?.totalSupply();
-
-      setClaimedSupply(claimed?.toNumber());
-      setTotalSupply(totalsupply?.toNumber());
-
-      // Load NFT Drop Contract metadata
-      const metadata = await nftDrop?.metadata.get();
-      setMetadata(metadata);
-    })();
-  }, [nftDrop]);
+  // Load claimed supply and unclaimed supply
+  const { data: unclaimedSupply } = useUnclaimedNFTSupply(nftDrop);
+  const { data: claimedSupply } = useClaimedNFTSupply(nftDrop);
 
   // Loading state while we fetch the metadata
   if (!nftDrop || !contractMetadata) {
@@ -47,11 +40,13 @@ const Home: NextPage = () => {
 
   // Function to mint/claim an NFT
   async function mint() {
+    // Make sure the user has their wallet connected.
     if (!address) {
       connectWithMetamask();
       return;
     }
 
+    // Make sure the user is on the correct network (same network as your NFT Drop is).
     if (isOnWrongNetwork) {
       switchNetwork && switchNetwork(ChainId.Mumbai);
       return;
@@ -95,21 +90,30 @@ const Home: NextPage = () => {
               <p>Total Minted</p>
             </div>
             <div className={styles.mintAreaRight}>
-              {claimedSupply && totalSupply ? (
+              {claimedSupply && unclaimedSupply ? (
                 <p>
-                  <b>{claimedSupply}</b>
+                  {/* Claimed supply so far */}
+                  <b>{claimedSupply?.toNumber()}</b>
                   {" / "}
-                  {totalSupply}
+                  {
+                    // Add unclaimed and claimed supply to get the total supply
+                    claimedSupply?.toNumber() + unclaimedSupply?.toNumber()
+                  }
                 </p>
               ) : (
+                // Show loading state if we're still loading the supply
                 <p>Loading...</p>
               )}
             </div>
           </div>
 
           {address ? (
-            <button className={styles.mainButton} onClick={mint}>
-              Mint
+            <button
+              className={styles.mainButton}
+              onClick={mint}
+              disabled={claiming}
+            >
+              {claiming ? "Minting..." : "Mint"}
             </button>
           ) : (
             <button className={styles.mainButton} onClick={connectWithMetamask}>
