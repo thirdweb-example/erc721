@@ -35,6 +35,7 @@ const Home: NextPage = () => {
   // Load claimed supply and unclaimed supply
   const { data: unclaimedSupply } = useUnclaimedNFTSupply(nftDrop);
   const { data: claimedSupply } = useClaimedNFTSupply(nftDrop);
+  const isSoldOut = unclaimedSupply?.toNumber() === 0;
 
   // Load the active claim condition
   const { data: activeClaimCondition } = useActiveClaimCondition(nftDrop);
@@ -113,42 +114,50 @@ const Home: NextPage = () => {
             </div>
           </div>
 
+          {/* Show claim button or connect wallet button */}
           {address ? (
-            <>
-              <p>Quantity</p>
-              <div className={styles.quantityContainer}>
-                <button
-                  className={`${styles.quantityControlButton}`}
-                  onClick={() => setQuantity(quantity - 1)}
-                  disabled={quantity <= 1}
-                >
-                  -
-                </button>
-
-                <h4>{quantity}</h4>
-
-                <button
-                  className={`${styles.quantityControlButton}`}
-                  onClick={() => setQuantity(quantity + 1)}
-                  disabled={
-                    quantity >=
-                    parseInt(
-                      activeClaimCondition?.quantityLimitPerTransaction || "0"
-                    )
-                  }
-                >
-                  +
-                </button>
+            // Sold out or show the claim button
+            !isSoldOut ? (
+              <div>
+                <h2>Sold Out</h2>
               </div>
+            ) : (
+              <>
+                <p>Quantity</p>
+                <div className={styles.quantityContainer}>
+                  <button
+                    className={`${styles.quantityControlButton}`}
+                    onClick={() => setQuantity(quantity - 1)}
+                    disabled={quantity <= 1}
+                  >
+                    -
+                  </button>
 
-              <button
-                className={`${styles.mainButton} ${styles.spacerTop} ${styles.spacerBottom}`}
-                onClick={mint}
-                disabled={claiming}
-              >
-                {claiming ? "Minting..." : "Mint"}
-              </button>
-            </>
+                  <h4>{quantity}</h4>
+
+                  <button
+                    className={`${styles.quantityControlButton}`}
+                    onClick={() => setQuantity(quantity + 1)}
+                    disabled={
+                      quantity >=
+                      parseInt(
+                        activeClaimCondition?.quantityLimitPerTransaction || "0"
+                      )
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+
+                <button
+                  className={`${styles.mainButton} ${styles.spacerTop} ${styles.spacerBottom}`}
+                  onClick={mint}
+                  disabled={claiming}
+                >
+                  {claiming ? "Minting..." : "Mint"}
+                </button>
+              </>
+            )
           ) : (
             <button className={styles.mainButton} onClick={connectWithMetamask}>
               Connect Wallet
