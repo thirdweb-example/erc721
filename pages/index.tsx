@@ -117,7 +117,7 @@ const Home: NextPage = () => {
           {/* Show claim button or connect wallet button */}
           {address ? (
             // Sold out or show the claim button
-            !isSoldOut ? (
+            isSoldOut ? (
               <div>
                 <h2>Sold Out</h2>
               </div>
