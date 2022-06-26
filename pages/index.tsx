@@ -5,6 +5,7 @@ import {
   useNetwork,
   useNFTDrop,
   useUnclaimedNFTSupply,
+  useActiveClaimCondition,
 } from "@thirdweb-dev/react";
 import { useNetworkMismatch } from "@thirdweb-dev/react";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
@@ -22,6 +23,8 @@ const Home: NextPage = () => {
   const isOnWrongNetwork = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
 
+  // The amount the user claims, updates when they type a value into the input field.
+  const [quantity, setQuantity] = useState<number>(1); // default to 1
   const [claiming, setClaiming] = useState<boolean>(false);
 
   // Load contract metadata
@@ -32,6 +35,9 @@ const Home: NextPage = () => {
   // Load claimed supply and unclaimed supply
   const { data: unclaimedSupply } = useUnclaimedNFTSupply(nftDrop);
   const { data: claimedSupply } = useClaimedNFTSupply(nftDrop);
+
+  // Load the active claim condition
+  const { data: activeClaimCondition } = useActiveClaimCondition(nftDrop);
 
   // Loading state while we fetch the metadata
   if (!nftDrop || !contractMetadata) {
@@ -55,12 +61,12 @@ const Home: NextPage = () => {
     setClaiming(true);
 
     try {
-      const minted = await nftDrop?.claim(1);
+      const minted = await nftDrop?.claim(quantity);
       console.log(minted);
-      alert(`Successfully minted NFT!`);
-    } catch (error) {
+      alert(`Successfully minted NFT${quantity > 1 ? "s" : ""}!`);
+    } catch (error: any) {
       console.error(error);
-      alert(error);
+      alert((error?.message as string) || "Something went wrong");
     } finally {
       setClaiming(false);
     }
@@ -108,13 +114,41 @@ const Home: NextPage = () => {
           </div>
 
           {address ? (
-            <button
-              className={styles.mainButton}
-              onClick={mint}
-              disabled={claiming}
-            >
-              {claiming ? "Minting..." : "Mint"}
-            </button>
+            <>
+              <p>Quantity</p>
+              <div className={styles.quantityContainer}>
+                <button
+                  className={`${styles.quantityControlButton}`}
+                  onClick={() => setQuantity(quantity - 1)}
+                  disabled={quantity <= 1}
+                >
+                  -
+                </button>
+
+                <h4>{quantity}</h4>
+
+                <button
+                  className={`${styles.quantityControlButton}`}
+                  onClick={() => setQuantity(quantity + 1)}
+                  disabled={
+                    quantity >=
+                    parseInt(
+                      activeClaimCondition?.quantityLimitPerTransaction || "0"
+                    )
+                  }
+                >
+                  +
+                </button>
+              </div>
+
+              <button
+                className={`${styles.mainButton} ${styles.spacerTop} ${styles.spacerBottom}`}
+                onClick={mint}
+                disabled={claiming}
+              >
+                {claiming ? "Minting..." : "Mint"}
+              </button>
+            </>
           ) : (
             <button className={styles.mainButton} onClick={connectWithMetamask}>
               Connect Wallet
@@ -127,7 +161,7 @@ const Home: NextPage = () => {
         src={`/logo.png`}
         alt="Thirdweb Logo"
         width={135}
-        className={styles.thirdwebLogo}
+        className={styles.buttonGapTop}
       />
     </div>
   );

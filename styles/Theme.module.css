@@ -105,9 +105,51 @@
   opacity: 0.75;
 }
 
-.thirdwebLogo {
+.spacerTop {
+  margin-top: 16px;
+}
+
+.spacerBottom {
+  margin-bottom: 16px;
+}
+
+.buttonGapTop {
   cursor: pointer;
   margin-top: 32px;
+}
+
+.quantityContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+}
+
+.textInput {
+  width: 48px;
+  background-color: transparent;
+  border: 1px solid grey;
+  border-radius: 8px;
+  color: #fff;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 1rem;
+}
+
+.quantityControlButton {
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 2rem;
+  background-color: transparent;
+  border: 1px solid grey;
+  color: #fff;
+}
+
+.quantityControlButton:disabled {
+  opacity: 0.25;
 }
 
 /* On mobile, make the .mintInfoContainer stack vertically */
