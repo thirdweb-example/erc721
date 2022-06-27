@@ -12,6 +12,7 @@ import {
 } from '@thirdweb-dev/react';
 import { useNetworkMismatch } from '@thirdweb-dev/react';
 import { useAddress, useMetamask } from '@thirdweb-dev/react';
+import { formatUnits, parseUnits } from 'ethers/lib/utils';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import styles from '../styles/Theme.module.css';
@@ -51,6 +52,15 @@ const Home: NextPage = () => {
 
   // Check if there's any NFTs left
   const isSoldOut = unclaimedSupply?.toNumber() === 0;
+
+  // Check price
+  const price = parseUnits(
+    activeClaimCondition?.currencyMetadata.displayValue || '0',
+    activeClaimCondition?.currencyMetadata.decimals,
+  );
+
+  // Multiply depending on quantity
+  const priceToMint = price.mul(quantity);
 
   // Loading state while we fetch the metadata
   if (!nftDrop || !contractMetadata) {
@@ -164,7 +174,20 @@ const Home: NextPage = () => {
                   onClick={mint}
                   disabled={claimNFT.isLoading}
                 >
-                  {claimNFT.isLoading ? 'Minting...' : 'Mint'}
+                  {claimNFT.isLoading
+                    ? 'Minting...'
+                    : `Mint${quantity > 1 ? ` ${quantity}` : ''}${
+                        activeClaimCondition?.price.eq(0)
+                          ? ' (Free)'
+                          : activeClaimCondition?.currencyMetadata.displayValue
+                          ? ` (${formatUnits(
+                              priceToMint,
+                              activeClaimCondition.currencyMetadata.decimals,
+                            )} ${
+                              activeClaimCondition?.currencyMetadata.symbol
+                            })`
+                          : ''
+                      }`}
                 </button>
               </>
             )
