@@ -136,11 +136,11 @@ const Home: NextPage = () => {
             // Sold out or show the claim button
             isSoldOut ? (
               <div>
-                <h2>Sold Out</h2>
+                <h2>ALL are trapped. In this dimension.</h2>
               </div>
             ) : isNotReady ? (
               <div>
-                <h2>Not ready to be minted yet</h2>
+                <h2>Trap is not set yet.</h2>
               </div>
             ) : (
               <>
@@ -177,7 +177,7 @@ const Home: NextPage = () => {
                 >
                   {claimNFT.isLoading
                     ? "Minting..."
-                    : `Mint${quantity > 1 ? ` ${quantity}` : ""}${
+                    : `Trap & Tokenize${quantity > 1 ? ` ${quantity}` : ""}${
                         activeClaimCondition?.price.eq(0)
                           ? " (Free)"
                           : activeClaimCondition?.currencyMetadata.displayValue
@@ -218,7 +218,7 @@ const Home: NextPage = () => {
       </div>
       {/* Powered by thirdweb */}{" "}
       <img
-        src="/logo.png"
+        src="/albert.jpg"
         alt="thirdweb Logo"
         width={135}
         className={styles.buttonGapTop}

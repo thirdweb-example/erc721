@@ -2,7 +2,7 @@ import styles from "../../styles/Thirdweb.module.css";
 import React from "react";
 
 export default function ThirdwebGuideFooter() {
-  const url = "https://github.com/thirdweb-example/custom-minting-page";
+  const url = "https://app.amplifi.gg";
   return (
     <>
       <div
@@ -29,7 +29,7 @@ export default function ThirdwebGuideFooter() {
         }}
       >
         <img
-          src={"/github.png"}
+          src={"/albert.jpg"}
           width={40}
           height={40}
           role="button"
