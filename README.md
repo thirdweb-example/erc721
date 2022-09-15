@@ -42,7 +42,14 @@ You can configure:
 
 Replace the value of the `myNftDropContractAddress` inside [`index.tsx`](/pages/index.tsx) with your NFT Drop contract address you can find in the dashboard.
 
----
+### 4. Configure Your Network
+
+Inside [`_app.tsx`](/pages/_app.tsx) you can configure the network you want to use:
+
+```jsx
+// This is the chainId your dApp will work on.
+const activeChainId = ChainId.Mumbai;
+```
 
 ## Join our Discord!
 

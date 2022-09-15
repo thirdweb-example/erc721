@@ -1,42 +1,27 @@
 import {
-  ChainId,
   useClaimedNFTSupply,
   useContractMetadata,
-  useNetwork,
-  useNFTDrop,
   useUnclaimedNFTSupply,
   useActiveClaimCondition,
-  useClaimNFT,
-  useWalletConnect,
-  useCoinbaseWallet,
-} from '@thirdweb-dev/react';
-import { useNetworkMismatch } from '@thirdweb-dev/react';
-import { useAddress, useMetamask } from '@thirdweb-dev/react';
-import { formatUnits, parseUnits } from 'ethers/lib/utils';
-import type { NextPage } from 'next';
-import { useState } from 'react';
-import styles from '../styles/Theme.module.css';
+  Web3Button,
+  useContract,
+} from "@thirdweb-dev/react";
+import { formatUnits, parseUnits } from "ethers/lib/utils";
+import type { NextPage } from "next";
+import { useState } from "react";
+import styles from "../styles/Theme.module.css";
 
 // Put Your NFT Drop Contract address from the dashboard here
-const myNftDropContractAddress = '0x322067594DBCE69A9a9711BC393440aA5e3Aaca1';
+const myNftDropContractAddress = "0x322067594DBCE69A9a9711BC393440aA5e3Aaca1";
 
 const Home: NextPage = () => {
-  const nftDrop = useNFTDrop(myNftDropContractAddress);
-  const address = useAddress();
-  const connectWithMetamask = useMetamask();
-  const connectWithWalletConnect = useWalletConnect();
-  const connectWithCoinbaseWallet = useCoinbaseWallet();
-  const isOnWrongNetwork = useNetworkMismatch();
-  const claimNFT = useClaimNFT(nftDrop);
-  const [, switchNetwork] = useNetwork();
+  const { contract: nftDrop } = useContract(myNftDropContractAddress);
 
   // The amount the user claims
   const [quantity, setQuantity] = useState(1); // default to 1
 
   // Load contract metadata
-  const { data: contractMetadata } = useContractMetadata(
-    myNftDropContractAddress,
-  );
+  const { data: contractMetadata } = useContractMetadata(nftDrop);
 
   // Load claimed supply and unclaimed supply
   const { data: unclaimedSupply } = useUnclaimedNFTSupply(nftDrop);
@@ -55,8 +40,8 @@ const Home: NextPage = () => {
 
   // Check price
   const price = parseUnits(
-    activeClaimCondition?.currencyMetadata.displayValue || '0',
-    activeClaimCondition?.currencyMetadata.decimals,
+    activeClaimCondition?.currencyMetadata.displayValue || "0",
+    activeClaimCondition?.currencyMetadata.decimals
   );
 
   // Multiply depending on quantity
@@ -66,27 +51,6 @@ const Home: NextPage = () => {
   if (!nftDrop || !contractMetadata) {
     return <div className={styles.container}>Loading...</div>;
   }
-
-  // Function to mint/claim an NFT
-  const mint = async () => {
-    if (isOnWrongNetwork) {
-      switchNetwork && switchNetwork(ChainId.Mumbai);
-      return;
-    }
-
-    claimNFT.mutate(
-      { to: address as string, quantity },
-      {
-        onSuccess: () => {
-          alert(`Successfully minted NFT${quantity > 1 ? 's' : ''}!`);
-        },
-        onError: (err: any) => {
-          console.error(err);
-          alert(err?.message || 'Something went wrong');
-        },
-      },
-    );
-  };
 
   return (
     <div className={styles.container}>
@@ -116,7 +80,7 @@ const Home: NextPage = () => {
                 <p>
                   {/* Claimed supply so far */}
                   <b>{claimedSupply?.toNumber()}</b>
-                  {' / '}
+                  {" / "}
                   {
                     // Add unclaimed and claimed supply to get the total supply
                     claimedSupply?.toNumber() + unclaimedSupply?.toNumber()
@@ -130,7 +94,7 @@ const Home: NextPage = () => {
           </div>
 
           {/* Show claim button or connect wallet button */}
-          {address ? (
+          {
             // Sold out or show the claim button
             isSoldOut ? (
               <div>
@@ -160,8 +124,7 @@ const Home: NextPage = () => {
                     disabled={
                       quantity >=
                       parseInt(
-                        activeClaimCondition?.quantityLimitPerTransaction ||
-                          '0',
+                        activeClaimCondition?.quantityLimitPerTransaction || "0"
                       )
                     }
                   >
@@ -169,53 +132,43 @@ const Home: NextPage = () => {
                   </button>
                 </div>
 
-                <button
-                  className={`${styles.mainButton} ${styles.spacerTop} ${styles.spacerBottom}`}
-                  onClick={mint}
-                  disabled={claimNFT.isLoading}
-                >
-                  {claimNFT.isLoading
-                    ? 'Minting...'
-                    : `Mint${quantity > 1 ? ` ${quantity}` : ''}${
-                        activeClaimCondition?.price.eq(0)
-                          ? ' (Free)'
-                          : activeClaimCondition?.currencyMetadata.displayValue
-                          ? ` (${formatUnits(
-                              priceToMint,
-                              activeClaimCondition.currencyMetadata.decimals,
-                            )} ${
-                              activeClaimCondition?.currencyMetadata.symbol
-                            })`
-                          : ''
-                      }`}
-                </button>
+                <div className={styles.mintContainer}>
+                  <Web3Button
+                    contractAddress={myNftDropContractAddress}
+                    action={async (contract) =>
+                      await contract.erc721.claim(quantity)
+                    }
+                    // If the function is successful, we can do something here.
+                    onSuccess={(result) =>
+                      alert(
+                        `Successfully minted ${result.length} NFT${
+                          result.length > 1 ? "s" : ""
+                        }!`
+                      )
+                    }
+                    // If the function fails, we can do something here.
+                    onError={(error) => alert(error?.message)}
+                    accentColor="#f213a4"
+                    colorMode="dark"
+                  >
+                    {`Mint${quantity > 1 ? ` ${quantity}` : ""}${
+                      activeClaimCondition?.price.eq(0)
+                        ? " (Free)"
+                        : activeClaimCondition?.currencyMetadata.displayValue
+                        ? ` (${formatUnits(
+                            priceToMint,
+                            activeClaimCondition.currencyMetadata.decimals
+                          )} ${activeClaimCondition?.currencyMetadata.symbol})`
+                        : ""
+                    }`}
+                  </Web3Button>
+                </div>
               </>
             )
-          ) : (
-            <div className={styles.buttons}>
-              <button
-                className={styles.mainButton}
-                onClick={connectWithMetamask}
-              >
-                Connect MetaMask
-              </button>
-              <button
-                className={styles.mainButton}
-                onClick={connectWithWalletConnect}
-              >
-                Connect with Wallet Connect
-              </button>
-              <button
-                className={styles.mainButton}
-                onClick={connectWithCoinbaseWallet}
-              >
-                Connect with Coinbase Wallet
-              </button>
-            </div>
-          )}
+          }
         </div>
       </div>
-      {/* Powered by thirdweb */}{' '}
+      {/* Powered by thirdweb */}{" "}
       <img
         src="/logo.png"
         alt="thirdweb Logo"

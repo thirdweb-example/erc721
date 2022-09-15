@@ -135,6 +135,15 @@
   gap: 10%;
 }
 
+.mintContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10%;
+  margin-top: 24px;
+}
+
 .textInput {
   width: 48px;
   background-color: transparent;
