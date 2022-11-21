@@ -143,6 +143,8 @@ const Home: NextPage = () => {
     numberTotal,
   ]);
 
+  console.log("claimIneligibilityReasons", claimIneligibilityReasons.data);
+
   const canClaim = useMemo(() => {
     return (
       activeClaimCondition.isSuccess &&
@@ -277,7 +279,7 @@ const Home: NextPage = () => {
                     <button
                       className={`${styles.quantityControlButton}`}
                       onClick={() => setQuantity(quantity + 1)}
-                      disabled={quantity >= maxClaimable - 1}
+                      disabled={quantity >= maxClaimable}
                     >
                       +
                     </button>
@@ -298,6 +300,7 @@ const Home: NextPage = () => {
                           alert("Error claiming NFTs");
                         }}
                         onSuccess={() => {
+                          setQuantity(1);
                           alert("Successfully claimed NFTs");
                         }}
                       >
