@@ -170,6 +170,32 @@
   opacity: 0.25;
 }
 
+.timer {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  margin-top: -40px;
+}
+
+.timerItem {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+
+.timerValue {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.timerLabel {
+  font-size: 1rem;
+  opacity: 0.75;
+  margin-top: -20px;
+}
+
 /* On mobile, make the .mintInfoContainer stack vertically */
 @media screen and (max-width: 850px) {
   .mintInfoContainer {
