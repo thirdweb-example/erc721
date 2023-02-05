@@ -1,4 +1,5 @@
 import {
+  MediaRenderer,
   useActiveClaimConditionForWallet,
   useAddress,
   useClaimConditions,
@@ -12,12 +13,14 @@ import {
 } from "@thirdweb-dev/react";
 import { BigNumber, utils } from "ethers";
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useMemo, useState } from "react";
+import Timer from "../components/Timer";
 import styles from "../styles/Theme.module.css";
 import { parseIneligibility } from "../utils/parseIneligibility";
 
 // Put Your NFT Drop Contract address from the dashboard here
-const myNftDropContractAddress = "0x90E2dD8C48cA35534Dd70e3eC19B362cdf71981E";
+const myNftDropContractAddress = "0xbC044bc063F4F88e9d52D833c200aE05Ea65FAF9";
 
 const Home: NextPage = () => {
   const { contract: nftDrop } = useContract(myNftDropContractAddress);
@@ -143,8 +146,6 @@ const Home: NextPage = () => {
     numberTotal,
   ]);
 
-  console.log("claimIneligibilityReasons", claimIneligibilityReasons.data);
-
   const canClaim = useMemo(() => {
     return (
       activeClaimCondition.isSuccess &&
@@ -227,7 +228,7 @@ const Home: NextPage = () => {
 
             <div className={styles.imageSide}>
               {/* Image Preview of NFTs */}
-              <img
+              <MediaRenderer
                 className={styles.image}
                 src={contractMetadata?.image}
                 alt={`${contractMetadata?.name} preview image`}
@@ -246,7 +247,6 @@ const Home: NextPage = () => {
                       {numberTotal}
                     </p>
                   ) : (
-                    // Show loading state if we're still loading the supply
                     <p>Loading...</p>
                   )}
                 </div>
@@ -261,6 +261,11 @@ const Home: NextPage = () => {
                     This drop is not ready to be minted yet. (No claim condition
                     set)
                   </h2>
+                </div>
+              ) : !activeClaimCondition.data && claimConditions.data ? (
+                <div>
+                  <h2>Drop starts in:</h2>
+                  <Timer date={claimConditions.data[0].startTime} />
                 </div>
               ) : (
                 <>
@@ -315,11 +320,15 @@ const Home: NextPage = () => {
         )}
       </div>
       {/* Powered by thirdweb */}{" "}
-      <img
+      <Image
         src="/logo.png"
         alt="thirdweb Logo"
         width={135}
+        height={22}
         className={styles.buttonGapTop}
+        style={{
+          objectFit: "contain",
+        }}
       />
     </div>
   );
