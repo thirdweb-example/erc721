@@ -1,0 +1,25 @@
+{
+  "name": "appuri-vite",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "deploy": "yarn build && npx thirdweb@latest upload dist"
+  },
+  "dependencies": {
+    "@thirdweb-dev/react": "^3.9.0",
+    "@thirdweb-dev/sdk": "^3.9.0",
+    "ethers": "^5.7.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
+    "@vitejs/plugin-react": "^2",
+    "typescript": "^4.7.2",
+    "vite": "^3"
+  }
+}
