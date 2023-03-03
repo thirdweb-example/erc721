@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
+    "@thirdweb-dev/chains": "^0.1.6-nightly-20230302201429-8f46a2ee",
     "@thirdweb-dev/react": "^3.9.0",
     "@thirdweb-dev/sdk": "^3.9.0",
     "ethers": "^5.7.2",

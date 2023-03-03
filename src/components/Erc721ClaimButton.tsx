@@ -252,7 +252,7 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
               >
                 -
               </button>
-              <p className="w-full h-full text-center text-white flex justify-center items-center px-24">
+              <p className="w-full h-full text-center text-white flex justify-center items-center px-24 font-mono">
                 {quantity}
               </p>
               <button

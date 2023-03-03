@@ -1064,6 +1064,11 @@
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/chains/-/chains-0.1.5.tgz#2827f31170834f4a0b83149eec0516135f64e6db"
   integrity sha512-K4RCSaCxVp9ki/G2h2gEXQG2tKbiPozWlpt03eaAsR2clt3wO3dAMRiTIGuob/+5UpD628aZlmY8bysw4ouyDg==
 
+"@thirdweb-dev/chains@^0.1.6-nightly-20230302201429-8f46a2ee":
+  version "0.1.6-nightly-20230302201429-8f46a2ee"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/chains/-/chains-0.1.6-nightly-20230302201429-8f46a2ee.tgz#b2beea60519e1f82ef652bc6faaa0b9f5d36f360"
+  integrity sha512-hm8hYja86ZFgLn1vI0VxSSgyKNCXbIydQu/aqrSxrkyet1wG0Lw3bUTQH6uU1X0y3eXi+0aJ4qigeHBmwIhmlQ==
+
 "@thirdweb-dev/contracts-js@^1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts-js/-/contracts-js-1.3.1.tgz#e1e6a0d0c33fc2a7b87caaf556211238d028e326"

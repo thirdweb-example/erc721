@@ -9,11 +9,11 @@ import {
 } from '@thirdweb-dev/react';
 import { BigNumber } from 'ethers';
 import { useMemo } from 'react';
-import { DropSvg } from './components/DropSvg';
 import { ERC721ClaimButton } from './components/Erc721ClaimButton';
 import { HeadingImage } from './components/HeadingImage';
 
-const contractAddress = '0x7226c20Ae822b6724536C661579a2269A07b2711';
+const urlParams = new URL(window.location.toString()).searchParams;
+const contractAddress = urlParams.get("contractAddress") || "";
 
 export default function Home() {
   const contractQuery = useContract(contractAddress);
@@ -67,12 +67,7 @@ export default function Home() {
               </p>
             ) : null}
             <div className="flex gap-4 w-full">
-              {/*               <ConnectWallet colorMode='dark' /> */}
               <ERC721ClaimButton contract={contractQuery.contract} />
-              {/*               <div className="flex flex-col gap-1 justify-center">
-                <p className="uppercase text-gray-500 text-sm">Price</p>
-                <p className="text-sm">0.01 ETH</p>
-              </div> */}
             </div>
           </div>
         </div>
