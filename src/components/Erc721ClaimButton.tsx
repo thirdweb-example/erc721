@@ -236,7 +236,6 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="w-full gap-4 lg:gap-4 flex flex-col lg:flex-row lg:items-center ">
-{/*         {!isSoldOut && ( */}
           <div>
             <div className="h-12 flex border border-gray-800 rounded-lg px-2">
               <button
@@ -276,7 +275,6 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
               </button>
             </div>
           </div>
-{/*         )} */}
         {address ? (
           <Web3Button
             contractAddress={contract?.getAddress() || ''}
@@ -328,17 +326,6 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
           <ConnectWallet />
         )}
       </div>
-
-      {/*       <p size="label.md" color="green.500" >
-        <Skeleton as="span" isLoaded={!isLoading}>
-          {isLoading ? "00" : numberClaimed}
-        </Skeleton>{" "}
-        /{" "}
-        <Skeleton as="span" isLoaded={!isLoading}>
-          {isLoading ? "00" : numberTotal}
-        </Skeleton>{" "}
-        minted
-      </p> */}
     </div>
   );
 };
