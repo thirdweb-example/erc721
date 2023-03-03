@@ -1,7 +1,4 @@
 import {
-  ConnectWallet,
-  MediaRenderer,
-  ThirdwebNftMedia,
   useClaimedNFTSupply,
   useContract,
   useContractMetadata,

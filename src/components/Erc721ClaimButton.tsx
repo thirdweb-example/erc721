@@ -15,7 +15,7 @@ import { BigNumber, utils } from 'ethers';
 import React, { useMemo, useState } from 'react';
 import { useDebounce } from '../hooks/useDebounce';
 import { parseIneligibility } from '../utils/parseIneligibility';
-import { clsx } from "clsx"
+import { Toast } from './Toast';
 
 interface ClaimButtonProps {
   contract?: Exclude<DropContract, TokenDrop | EditionDrop>;
@@ -24,7 +24,12 @@ interface ClaimButtonProps {
 export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
   const address = useAddress();
   const [quantity, setQuantity] = useState(1);
-  /*   const toast = useToast(); */
+  const [toast, setToast] = useState({
+    status: '',
+    title: '',
+    duration: 0,
+    isClosable: false,
+  });
 
   const debouncedQuantity = useDebounce(quantity, 500);
 
@@ -236,45 +241,45 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="w-full gap-4 lg:gap-4 flex flex-col lg:flex-row lg:items-center ">
-          <div>
-            <div className="h-12 flex border border-gray-800 rounded-lg px-2">
-              <button
-                onClick={() => {
-                  const value = quantity - 1;
-                  if (value > maxClaimable) {
-                    setQuantity(maxClaimable);
-                  } else if (value < 1) {
-                    setQuantity(1);
-                  } else {
-                    setQuantity(value);
-                  }
-                }}
-                className="h-full text-center text-white rounded-l-md text-2xl flex justify-center items-center px-2"
-                disabled={isSoldOut}
-              >
-                -
-              </button>
-              <p className="w-full lg:w-64 h-full text-center text-white flex justify-center items-center  font-mono">
-                {!isLoading && isSoldOut ? "Sold Out" : quantity}
-              </p>
-              <button
-                onClick={() => {
-                  const value = quantity + 1;
-                  if (value > maxClaimable) {
-                    setQuantity(maxClaimable);
-                  } else if (value < 1) {
-                    setQuantity(1);
-                  } else {
-                    setQuantity(value);
-                  }
-                }}
-                className="h-full text-center text-white rounded-r-md text-2xl flex justify-center items-center px-2"
-                disabled={isSoldOut}
-              >
-                +
-              </button>
-            </div>
+        <div>
+          <div className="h-12 flex border border-gray-800 rounded-lg px-2">
+            <button
+              onClick={() => {
+                const value = quantity - 1;
+                if (value > maxClaimable) {
+                  setQuantity(maxClaimable);
+                } else if (value < 1) {
+                  setQuantity(1);
+                } else {
+                  setQuantity(value);
+                }
+              }}
+              className="h-full text-center text-white rounded-l-md text-2xl flex justify-center items-center px-2"
+              disabled={isSoldOut}
+            >
+              -
+            </button>
+            <p className="w-full lg:w-64 h-full text-center text-white flex justify-center items-center  font-mono">
+              {!isLoading && isSoldOut ? 'Sold Out' : quantity}
+            </p>
+            <button
+              onClick={() => {
+                const value = quantity + 1;
+                if (value > maxClaimable) {
+                  setQuantity(maxClaimable);
+                } else if (value < 1) {
+                  setQuantity(1);
+                } else {
+                  setQuantity(value);
+                }
+              }}
+              className="h-full text-center text-white rounded-r-md text-2xl flex justify-center items-center px-2"
+              disabled={isSoldOut}
+            >
+              +
+            </button>
           </div>
+        </div>
         {address ? (
           <Web3Button
             contractAddress={contract?.getAddress() || ''}
@@ -282,20 +287,20 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
             isDisabled={!canClaim || buttonLoading}
             onError={(err) => {
               console.error(err);
-              /*             toast({
-              title: "Failed to mint drop.",
-              status: "error",
-              duration: 9000,
-              isClosable: true,
-            }); */
+              setToast({
+                title: 'Failed to mint drop.',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+              });
             }}
             onSuccess={() => {
-              /*             toast({
-              title: "Successfully minted.",
-              status: "success",
-              duration: 5000,
-              isClosable: true,
-            }); */
+              setToast({
+                title: 'Successfully minted!',
+                status: 'success',
+                duration: 5000,
+                isClosable: true,
+              });
             }}
           >
             {buttonLoading ? (
@@ -326,6 +331,7 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
           <ConnectWallet />
         )}
       </div>
+      {toast?.title && <Toast {...toast} />}
     </div>
   );
 };

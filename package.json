@@ -9,6 +9,8 @@
     "deploy": "npx thirdweb@nightly deploy --app"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.13",
+    "@heroicons/react": "^2.0.16",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@thirdweb-dev/chains": "^0.1.6-dev-20230303090627-ce0afeb",
     "@thirdweb-dev/react": "^3.10.0-dev-20230303090627-ce0afeb",
