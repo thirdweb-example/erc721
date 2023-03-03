@@ -7,7 +7,7 @@ interface HeadingImage {
 
 export const HeadingImage: React.FC<HeadingImage> = ({ src }) => {
   return (
-    <div className="rounded-xl md:rounded-l-none overflow-hidden bg-white">
+    <div className="rounded-xl  overflow-hidden bg-white">
     <div>
       {src ? (
         <MediaRenderer
