@@ -18,7 +18,7 @@ export const HeadingImage: React.FC<HeadingImage> = ({
         >
           <div className="flex items-center justify-center w-full h-full bg-gray-300 rounded dark:bg-gray-700">
             <svg
-              className="w-full h-full text-gray-200 p-24 lg:p-48"
+              className="w-full h-full text-gray-200 p-24 lg:p-56"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
               fill="currentColor"
@@ -36,7 +36,7 @@ export const HeadingImage: React.FC<HeadingImage> = ({
           ) : (
             <div className="flex items-center justify-center w-full h-full bg-gray-300 rounded dark:bg-gray-700">
             <svg
-              className="w-full h-full text-gray-200 p-24 lg:p-48"
+              className="w-full h-full text-gray-200 p-24 lg:p-56"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
               fill="currentColor"
