@@ -8,4 +8,5 @@ export default defineConfig({
     global: "globalThis",
     "process.env": {},
   },
+  base: "./",
 });

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -19,6 +23,5 @@ html {
   color-scheme: dark;
 }
 body {
-  color: #e7e8e8;
-  background: #0f1318;
+  @apply h-screen bg-black text-white;
 }
