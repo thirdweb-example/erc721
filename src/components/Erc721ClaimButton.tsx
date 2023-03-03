@@ -234,7 +234,7 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <div className="w-full gap-2 flex items-center">
+      <div className="w-full gap-4 lg:gap-4 flex flex-col lg:flex-row lg:items-center ">
         {!isSoldOut && (
           <div>
             <div className="h-12 flex border border-gray-800 rounded-lg px-2">
