@@ -34,12 +34,18 @@ export default function Home() {
 
   const isLoading = unclaimedSupply.isLoading || claimedSupply.isLoading;
 
-  console.log({ contractMetadata, contractQuery, contractAddress });
+  if (!contractAddress) {
+    return (
+      <div className="flex justify-center items-center h-full">
+        No contract address provided
+      </div>
+    )
+  }
 
   return (
     <div className="h-screen">
       <div className="grid grid-cols-1 lg:grid-cols-12 h-screen">
-        <div className="w-full h-full items-center justify-center hidden lg:flex lg:col-span-5">
+        <div className="w-full h-full items-center justify-center hidden lg:flex lg:col-span-5 lg:px-12">
           <HeadingImage src={contractMetadata.data?.image} isLoading={isLoading} />
         </div>
         <div className="w-full h-full flex items-center justify-center col-span-1 lg:col-span-7">
