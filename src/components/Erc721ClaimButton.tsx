@@ -1,4 +1,5 @@
 import {
+  ConnectWallet,
   DropContract,
   useActiveClaimConditionForWallet,
   useAddress,
@@ -273,8 +274,10 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
             </div>
           </div>
         )}
+        {address ? (
+
+        
         <Web3Button
-          colorMode="light"
           contractAddress={contract?.getAddress() || ''}
           action={(cntr) => cntr.erc721.claim(quantity)}
           isDisabled={!canClaim || buttonLoading}
@@ -320,6 +323,9 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
             buttonText
           )}
         </Web3Button>
+        ): (
+          <ConnectWallet />
+        )}
       </div>
 
       {/*       <p size="label.md" color="green.500" >

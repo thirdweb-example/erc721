@@ -6,12 +6,12 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "deploy": "yarn build && npx thirdweb@latest upload dist"
+    "deploy": "npx thirdweb@nightly deploy --app"
   },
   "dependencies": {
     "@tailwindcss/line-clamp": "^0.4.2",
-    "@thirdweb-dev/chains": "^0.1.6-nightly-20230302201429-8f46a2ee",
-    "@thirdweb-dev/react": "^3.9.0",
+    "@thirdweb-dev/chains": "^0.1.6-dev-20230303090627-ce0afeb",
+    "@thirdweb-dev/react": "^3.10.0-dev-20230303090627-ce0afeb",
     "@thirdweb-dev/sdk": "^3.9.0",
     "ethers": "^5.7.2",
     "react": "^18.2.0",
