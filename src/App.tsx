@@ -33,14 +33,14 @@ export default function Home() {
               </span>{' '}
               <span className="text-2xl font-bold  tracking-wider">/ 7777</span>
             </p>
-            <h1 className="text-4xl font-bold">
+            <h1 className="text-4xl font-bold line-clamp-1">
               {contractMetadata.isLoading
                 ? 'Loading...'
                 : contractMetadata.data?.name}
             </h1>
             {contractMetadata.data?.description ||
             contractMetadata.isLoading ? (
-              <p className="text-gray-500">
+              <p className="text-gray-500 line-clamp-2">
                 {contractMetadata.isLoading
                   ? 'Loading Description...'
                   : contractMetadata.data?.description}
