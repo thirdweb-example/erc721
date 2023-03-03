@@ -13,7 +13,7 @@ import { ERC721ClaimButton } from './components/Erc721ClaimButton';
 import { HeadingImage } from './components/HeadingImage';
 
 const urlParams = new URL(window.location.toString()).searchParams;
-const contractAddress = urlParams.get("contractAddress") || "";
+const contractAddress = urlParams.get('contractAddress') || '';
 
 export default function Home() {
   const contractQuery = useContract(contractAddress);
@@ -32,40 +32,76 @@ export default function Home() {
       .toString();
   }, [claimedSupply.data, unclaimedSupply.data]);
 
+  const isLoading = unclaimedSupply.isLoading || claimedSupply.isLoading;
+
   console.log({ contractMetadata, contractQuery, contractAddress });
 
   return (
     <div className="h-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-12  h-screen grid-">
+      <div className="grid grid-cols-1 lg:grid-cols-12 h-screen">
         <div className="w-full h-full items-center justify-center hidden lg:flex lg:col-span-5">
-          <HeadingImage src={contractMetadata.data?.image} />
+          <HeadingImage src={contractMetadata.data?.image} isLoading={isLoading} />
         </div>
         <div className="w-full h-full flex items-center justify-center col-span-1 lg:col-span-7">
-          <div className="lg:border p-12 rounded-xl lg:border-gray-800 flex flex-col gap-4 ">
-            <div className="w-1/2 flex lg:hidden">
-              <HeadingImage src={contractMetadata.data?.image} />
+          <div className="lg:border p-12 rounded-xl lg:border-gray-800 flex flex-col gap-4">
+            <div className="w-full flex lg:hidden mb-8">
+              <HeadingImage src={contractMetadata.data?.image} isLoading={isLoading} />
             </div>
-            <p>
-              <span className="text-gray-500 text-2xl font-bold tracking-wider">
-                {numberClaimed}
-              </span>{' '}
-              <span className="text-2xl font-bold tracking-wider">
-                / {numberTotal} minted
-              </span>
-            </p>
-            <h1 className="text-4xl font-bold line-clamp-1">
-              {contractMetadata.isLoading
-                ? 'Loading...'
-                : contractMetadata.data?.name}
-            </h1>
-            {contractMetadata.data?.description ||
-            contractMetadata.isLoading ? (
-              <p className="text-gray-500 line-clamp-2">
-                {contractMetadata.isLoading
-                  ? 'Loading Description...'
-                  : contractMetadata.data?.description}
-              </p>
-            ) : null}
+            <div className="flex flex-col gap-4">
+              {isLoading ? (
+                <div
+                  role="status"
+                  className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
+                >
+                  <div className="w-full">
+                    <div className="h-10 bg-gray-200 rounded-full dark:bg-gray-700 w-24"></div>
+                  </div>
+                </div>
+              ) : (
+                <p>
+                  <span className="text-gray-500 text-2xl font-bold tracking-wider">
+                    {numberClaimed}
+                  </span>{' '}
+                  <span className="text-2xl font-bold tracking-wider">
+                    / {numberTotal} minted
+                  </span>
+                </p>
+              )}
+              <h1 className="text-4xl font-bold line-clamp-1">
+                {contractMetadata.isLoading ? (
+                  <div
+                    role="status"
+                    className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
+                  >
+                    <div className="w-full">
+                      <div className="h-8 bg-gray-200 rounded-full dark:bg-gray-700 w-48"></div>
+                    </div>
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  contractMetadata.data?.name
+                )}
+              </h1>
+              {contractMetadata.data?.description ||
+              contractMetadata.isLoading ? (
+                <p className="text-gray-500 line-clamp-2">
+                  {contractMetadata.isLoading ? (
+                    <div
+                      role="status"
+                      className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"
+                    >
+                      <div className="w-full">
+                        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[480px] mb-2.5"></div>
+                        <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                      </div>
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : (
+                    contractMetadata.data?.description
+                  )}
+                </p>
+              ) : null}
+            </div>
             <div className="flex gap-4 w-full">
               <ERC721ClaimButton contract={contractQuery.contract} />
             </div>
