@@ -3,24 +3,29 @@ import { Transition } from '@headlessui/react';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
+export interface ToastInterface {
+  status: string;
+  title: string;
+  description: string;
+  duration: number;
+  isClosable: boolean;
+}
+
 export interface ToastProps {
-  status?: string;
-  title?: string;
-  duration?: number;
-  isClosable?: boolean;
+  toast: ToastInterface;
+  showToast: boolean;
+  setShowToast: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Toast: React.FC<ToastProps> = ({
-  status = 'success',
-  title = '',
-  duration = 3000,
-  isClosable = false,
+  toast: { status, title, description, duration, isClosable },
+  showToast = false,
+  setShowToast,
 }) => {
-  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShow(false);
+      setShowToast(false);
     }, duration);
     return () => clearTimeout(timer);
   });
@@ -35,7 +40,7 @@ export const Toast: React.FC<ToastProps> = ({
         <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
           {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
           <Transition
-            show={show}
+            show={showToast}
             as={Fragment}
             enter="transform ease-out duration-300 transition"
             enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
@@ -62,15 +67,15 @@ export const Toast: React.FC<ToastProps> = ({
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-sm font-medium text-gray-300">{title}</p>
-                    {/*                     <p className="mt-1 text-sm text-gray-400">The NFT has been transferred to your wallet</p> */}
+                    <p className="mt-1 text-sm text-gray-400 first-letter:uppercase">{description}</p>
                   </div>
                   {isClosable ? (
                     <div className="ml-4 flex flex-shrink-0">
                       <button
                         type="button"
-                        className="inline-flex rounded-md bg-gray-900 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="inline-flex rounded-md bg-gray-900 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-black-500 focus:ring-offset-2"
                         onClick={() => {
-                          setShow(false);
+                          setShowToast(false);
                         }}
                       >
                         <span className="sr-only">Close</span>

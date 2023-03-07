@@ -12,10 +12,10 @@ import {
 } from '@thirdweb-dev/react';
 import { EditionDrop, TokenDrop } from '@thirdweb-dev/sdk';
 import { BigNumber, utils } from 'ethers';
-import React, { useMemo, useState } from 'react';
+import React, {  useMemo, useState } from 'react';
 import { useDebounce } from '../hooks/useDebounce';
 import { parseIneligibility } from '../utils/parseIneligibility';
-import { Toast } from './Toast';
+import { Toast, ToastInterface } from './Toast';
 
 interface ClaimButtonProps {
   contract?: Exclude<DropContract, TokenDrop | EditionDrop>;
@@ -24,12 +24,14 @@ interface ClaimButtonProps {
 export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
   const address = useAddress();
   const [quantity, setQuantity] = useState(1);
-  const [toast, setToast] = useState({
+  const [toast, setToast] = useState<ToastInterface>({
     status: '',
     title: '',
+    description: '',
     duration: 0,
     isClosable: false,
   });
+  const [showToast, setShowToast] = useState(false);
 
   const debouncedQuantity = useDebounce(quantity, 500);
 
@@ -287,20 +289,25 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
             isDisabled={!canClaim || buttonLoading}
             onError={(err) => {
               console.error(err);
+              console.log({err})
               setToast({
-                title: 'Failed to mint drop.',
+                title: 'Failed to mint drop',
+                description: (err as any).reason || "",
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
               });
+              setShowToast(true);
             }}
             onSuccess={() => {
               setToast({
-                title: 'Successfully minted!',
+                title: 'Successfully minted',
+                description: "The NFT has been transferred to your wallet",
                 status: 'success',
                 duration: 5000,
                 isClosable: true,
               });
+              setShowToast(true);
             }}
           >
             {buttonLoading ? (
@@ -331,7 +338,7 @@ export const ERC721ClaimButton: React.FC<ClaimButtonProps> = ({ contract }) => {
           <ConnectWallet />
         )}
       </div>
-      {toast?.title && <Toast {...toast} />}
+      <Toast showToast={showToast} setShowToast={setShowToast} toast={toast} />
     </div>
   );
 };
