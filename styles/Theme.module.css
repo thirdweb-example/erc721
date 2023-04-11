@@ -203,6 +203,10 @@
     padding-bottom: 5%;
   }
 
+  .mintButton {
+    max-width: 100% !important;
+  }
+  
   .infoSide {
     width: 100%;
   }
