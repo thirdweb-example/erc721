@@ -18,9 +18,10 @@ import { useMemo, useState } from "react";
 import Timer from "../components/Timer";
 import styles from "../styles/Theme.module.css";
 import { parseIneligibility } from "../utils/parseIneligibility";
+import { contractAddress } from "../const/yourDetails";
 
 // Put Your NFT Drop Contract address from the dashboard here
-const myNftDropContractAddress = "0xbC044bc063F4F88e9d52D833c200aE05Ea65FAF9";
+const myNftDropContractAddress = contractAddress;
 
 const Home: NextPage = () => {
   const { contract: nftDrop } = useContract(myNftDropContractAddress);
