@@ -207,6 +207,10 @@
     width: 100%;
   }
 
+  .mintButton {
+    max-width: 100% !important;
+  }
+
   .imageSide {
     width: 100%;
   }
