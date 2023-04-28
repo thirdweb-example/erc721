@@ -40,7 +40,7 @@ You can configure:
 
 ### 3. Plug in your NFT Drop contract address
 
-Replace the value of the `contractAddress` inside [`yourdetails.ts`](/const/yourDetails.ts) with your NFT Drop contract address you can find in the dashboard.
+Replace the value of the `contractAddress` inside [`yourDetails.ts`](/const/yourDetails.ts) with your NFT Drop contract address you can find in the dashboard.
 
 ### 4. Configure Your Network
 
