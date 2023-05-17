@@ -1,12 +1,11 @@
-# Customizable NFT Drop Minting Page
+# Customizable ERC721 Drop Claim Page
 
-In this example, you can create your own NFT Drop minting page just by customising the template with your branding, and plugging in your NFT Drop contract address.
+In this example, you can create your own ERC721 Drop claim page just by customizing the template with your branding and plugging in your NFT Drop contract address.
 
-## Tools
+This template works with the NFT Drop / Signature Drop contract from thirdweb or when using any of the Drop contract bases or if you implement these extensions:
 
-- [**NFT Drop**](https://portal.thirdweb.com/pre-built-contracts/nft-drop): to create a lazy-minted ERC721 NFT Collection that our users can claim.
-- [**React SDK**](https://docs.thirdweb.com/react): to enable users to connect their wallets with the [useMetamask](https://portal.thirdweb.com/react/react.usemetamask) hook, and access hooks such as [useNFTDrop](https://portal.thirdweb.com/react/react.usenftdrop) to interact with the NFT drop contract.
-- [**TypeScript SDK**](https://docs.thirdweb.com/typescript): to view the claimed supply, total supply, and mint NFTs from the drop.
+- [ERC721ClaimConditions](https://portal.thirdweb.com/solidity/extensions/erc721claimconditions)
+- [ERC721ClaimPhases](https://portal.thirdweb.com/solidity/extensions/erc721claimphases)
 
 ## Using This Repo
 
@@ -15,42 +14,29 @@ To create your own version of this template, you can use the following steps:
 Run this command from the terminal to clone this project:
 
 ```bash
-npx thirdweb create --template nft-drop
+npx thirdweb create --template erc721
 ```
 
-### 1. Deploy Your Own NFT Drop on thirdweb
+### 1. Deploy An NFT Drop on thirdweb
 
-Head to the thirdweb dashboard and create your own NFT Drop contract.
+If you haven't already deployed your contract, head over to the thirdweb dashboard and create your own NFT Drop contract.
 
 You can learn how to do that with our guide [Release an NFT drop on your own site without writing any code](https://portal.thirdweb.com/guides/release-an-nft-drop-with-no-code#create-a-drop-contract).
 
 Be sure to configure a **name**, **description**, and **image** for your NFT drop in the dashboard.
 
-### 2. Configure the styles to your branding
+### 2. Configure your contract and chain
 
-You can fully customize the colors and style of this template by editing the values in the [`globals.css`](/styles/globals.css) file.
+Go to the [`parameters.ts`](/src/consts/parameters.ts) and update `contractConst` and `chainConst` to match the contract address and chain of your deployed NFT drop contract.
 
-You can configure:
+### 3. Configure the styling
 
-- The color of the background with `--background-color`
-- The color of the text with `--text-color`
-- The color of the button (is a gradient from primary to secondary color) with `--color-primary` and `--color-secondary`
-- The font with `--font`
-- The border colors with `--border-color`
+You can change the theme and primary color of the page by updating `primaryColorConst` and `themeConst` in [`parameters.ts`](/src/consts/parameters.ts). If you want to go further, you can also update the styles in the respective components by changing the tailwind classes.
 
-### 3. Plug in your NFT Drop contract address
+### 4. Configuring gasless transactions
 
-Replace the value of the `myNftDropContractAddress` inside [`yourDetails.ts`](/const/yourDetails.ts) with your NFT Drop contract address you can find in the dashboard.
-
-### 4. Configure Your Network
-
-Inside [`_app.tsx`](/pages/_app.tsx) you can configure the network you want to use:
-
-```jsx
-// This is the chain your dApp will work on.
-const activeChain = "mumbai";
-```
+If you want to sponsor the gas fees for your user, you can update the `relayerUrlConst` in [`parameters.ts`](/src/consts/parameters.ts) to point to your Open Zeppelin relayer or `biconomyApiKeyConst` and `biconomyApiIdConst` to use Biconomy.
 
 ## Join our Discord!
 
-For any questions, suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).
+For any questions or suggestions, join our discord at [https://discord.gg/thirdweb](https://discord.gg/thirdweb).

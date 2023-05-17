@@ -2,7 +2,7 @@ import { ClaimEligibility } from "@thirdweb-dev/sdk";
 
 export function parseIneligibility(
   reasons: ClaimEligibility[],
-  quantity = 0
+  quantity = 0,
 ): string {
   if (!reasons.length) {
     return "";
