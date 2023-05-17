@@ -25,17 +25,24 @@ You can learn how to do that with our guide [Release an NFT drop on your own sit
 
 Be sure to configure a **name**, **description**, and **image** for your NFT drop in the dashboard.
 
-### 2. Configure your contract and chain
+### 2. Configure Parameters
 
-Go to the [`parameters.ts`](/src/consts/parameters.ts) and update `contractConst` and `chainConst` to match the contract address and chain of your deployed NFT drop contract.
+Go to the [`parameters.ts`](/src/consts/parameters.ts) and update the following values:
 
-### 3. Configure the styling
+1. `contractConst`: The smart contract address of your NFT drop.
+2.  `chainConst`: The name of the chain that your smart contract is deployed to.
 
-You can change the theme and primary color of the page by updating `primaryColorConst` and `themeConst` in [`parameters.ts`](/src/consts/parameters.ts). If you want to go further, you can also update the styles in the respective components by changing the tailwind classes.
+### 3. Customize the Styling
 
-### 4. Configuring gasless transactions
+You can change the theme and primary color of the page by updating `primaryColorConst` and `themeConst` in [`parameters.ts`](/src/consts/parameters.ts). 
+
+If you want to go further, you can also update the styles in the respective components by changing the [Tailwind](https://tailwindcss.com/) classes.
+
+### 4. Optional: Add Gasless Transaction Support
 
 If you want to sponsor the gas fees for your user, you can update the `relayerUrlConst` in [`parameters.ts`](/src/consts/parameters.ts) to point to your Open Zeppelin relayer or `biconomyApiKeyConst` and `biconomyApiIdConst` to use Biconomy.
+
+Learn more: https://portal.thirdweb.com/glossary/gasless-transactions
 
 ## Join our Discord!
 
