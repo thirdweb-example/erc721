@@ -1,4 +1,4 @@
-# Customizable ERC721 Drop Claim Page
+# ERC721 Drop Claim Page
 
 In this example, you can create your own ERC721 Drop claim page just by customizing the template with your branding and plugging in your NFT Drop contract address.
 
