@@ -30,11 +30,11 @@ Be sure to configure a **name**, **description**, and **image** for your NFT dro
 Go to the [`parameters.ts`](/src/consts/parameters.ts) and update the following values:
 
 1. `contractConst`: The smart contract address of your NFT drop.
-2.  `chainConst`: The name of the chain that your smart contract is deployed to.
+2. `chainConst`: The name of the chain that your smart contract is deployed to.
 
 ### 3. Customize the Styling
 
-You can change the theme and primary color of the page by updating `primaryColorConst` and `themeConst` in [`parameters.ts`](/src/consts/parameters.ts). 
+You can change the theme and primary color of the page by updating `primaryColorConst` and `themeConst` in [`parameters.ts`](/src/consts/parameters.ts).
 
 If you want to go further, you can also update the styles in the respective components by changing the [Tailwind](https://tailwindcss.com/) classes.
 
@@ -43,6 +43,22 @@ If you want to go further, you can also update the styles in the respective comp
 If you want to sponsor the gas fees for your user, you can update the `relayerUrlConst` in [`parameters.ts`](/src/consts/parameters.ts) to point to your Open Zeppelin relayer or `biconomyApiKeyConst` and `biconomyApiIdConst` to use Biconomy.
 
 Learn more: https://portal.thirdweb.com/glossary/gasless-transactions
+
+## Deploying Your Site
+
+### Deploying to IPFS
+
+To deploy your site to IPFS, run the following command:
+
+```bash
+yarn run build && yarn run deploy
+```
+
+This will deploy your site and output the IPFS hash of your site.
+
+### Deploying to a centralized server
+
+To deploy your site to a centralized server, you can use tools like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/) and deploy it like a normal Vite React app.
 
 ## Join our Discord!
 
