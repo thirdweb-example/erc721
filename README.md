@@ -58,7 +58,7 @@ This will deploy your site and output the IPFS hash of your site.
 
 ### Deploying to a centralized server
 
-To deploy your site to a centralized server, you can use tools like [Vercel](https://vercel.com/) or [Netlify](https://www.netlify.com/) and deploy it like a normal Vite React app.
+You can also deploy it to any centralized server like any normal website.
 
 ## Join our Discord!
 
