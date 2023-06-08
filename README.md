@@ -51,7 +51,7 @@ Learn more: https://portal.thirdweb.com/glossary/gasless-transactions
 To deploy your site to IPFS, run the following command:
 
 ```bash
-yarn run build && yarn run deploy
+yarn deploy
 ```
 
 This will deploy your site and output the IPFS hash of your site.
