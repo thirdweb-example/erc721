@@ -54,7 +54,7 @@ To deploy your site to IPFS, run the following command:
 yarn deploy
 ```
 
-This will deploy your site and output the IPFS hash of your site.
+This will deploy your site and output the IPFS hash of your site. You can then grab the IPFS hash and replace it with the one you get on the Embed tab on your contract on dashboard, so you get the updated version on your website once you copy it over.
 
 ### Deploying to a centralized server
 
