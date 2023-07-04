@@ -9,8 +9,10 @@ import {
   biconomyApiIdConst,
   biconomyApiKeyConst,
   chainConst,
+  customIpfsGateways,
   relayerUrlConst,
 } from "./consts/parameters";
+import { getCustomIpfsGateways } from "./utils/getCustomIpfsGateways";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -24,15 +26,20 @@ const biconomyApiKey =
   urlParams.get("biconomyApiKey") || biconomyApiKeyConst || "";
 const biconomyApiId =
   urlParams.get("biconomyApiId") || biconomyApiIdConst || "";
-const sdkOptions = getGasless(relayerUrl, biconomyApiKey, biconomyApiId);
+const { gasless } = getGasless(relayerUrl, biconomyApiKey, biconomyApiId);
 
+const ipfsGateways =
+  urlParams.get("customIpfsGateways") || customIpfsGateways.join(",") || "";
+
+const gatewayUrls = getCustomIpfsGateways(ipfsGateways);
+console.log( {gatewayUrls} )
 /* Use this when every embed changes to new embeds
 const network = urlParams.get("network") || "ethereum";
 const activeChain = getChainBySlug(network); */
 
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions}>
+    <ThirdwebProvider activeChain={chain} sdkOptions={{ gasless, gatewayUrls }}>
       <Toaster />
       <App />
     </ThirdwebProvider>
