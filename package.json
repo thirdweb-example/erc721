@@ -16,6 +16,7 @@
     "@thirdweb-dev/chains": "^0.1.13",
     "@thirdweb-dev/react": "^3.14.0",
     "@thirdweb-dev/sdk": "^3.10.22",
+    "@thirdweb-dev/storage": "^1.1.5",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "ethers": "^5",

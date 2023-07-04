@@ -9,8 +9,10 @@ import {
   biconomyApiIdConst,
   biconomyApiKeyConst,
   chainConst,
+  customIpfsGateway,
   relayerUrlConst,
 } from "./consts/parameters";
+import { getCustomStorageInterface } from "./utils/getCustomIpfsGateway";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -30,9 +32,19 @@ const sdkOptions = getGasless(relayerUrl, biconomyApiKey, biconomyApiId);
 const network = urlParams.get("network") || "ethereum";
 const activeChain = getChainBySlug(network); */
 
+// Use your own custom IPFS gateway
+const ipfsGateway =
+  urlParams.get("customIpfsGateway") || customIpfsGateway || "";
+
+const storageInterface = getCustomStorageInterface(ipfsGateway);
+
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions}>
+    <ThirdwebProvider
+      activeChain={chain}
+      sdkOptions={sdkOptions}
+      storageInterface={storageInterface}
+    >
       <Toaster />
       <App />
     </ThirdwebProvider>
