@@ -16,7 +16,7 @@ export const HeadingImage: React.FC<HeadingImage> = ({
           role="status"
           className="animate-pulse space-y-8 md:flex md:items-center md:space-x-8 md:space-y-0"
         >
-          <div className="flex h-full w-full items-center justify-center rounded bg-gray-300 dark:bg-gray-700">
+          <div className="flex items-center justify-center rounded bg-gray-300 dark:bg-gray-700 lg:h-96 lg:w-96">
             <svg
               className="h-full w-full p-24 text-gray-200 lg:p-56"
               xmlns="http://www.w3.org/2000/svg"
