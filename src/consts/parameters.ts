@@ -20,6 +20,7 @@ export const relayerUrlConst = ""; // OpenZeppelin relayer URL
 export const biconomyApiKeyConst = ""; // Biconomy API key
 export const biconomyApiIdConst = ""; // Biconomy API ID
 
-export const customIpfsGateways = [
-    // https://<your-custom-getway>/ipfs,
+export const customIpfsGateways:string[] = [
+    // https://<your-custom-getway-one>/ipfs,
+    // https://<your-custom-getway-two>/ipfs,
 ];
