@@ -10,7 +10,7 @@ export const contractConst = "0x436492DBc2E30E56FaC8F2297BD1964833c0687d";
 export const chainConst = "mumbai";
 
 // Configure the primary color for buttons and other UI elements
-export const primaryColorConst = "white";
+export const primaryColorConst = "blue";
 
 // Choose between "light" and "dark" mode
 export const themeConst = "dark";

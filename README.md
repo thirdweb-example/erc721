@@ -14,7 +14,7 @@ To create your own version of this template, you can use the following steps:
 Run this command from the terminal to clone this project:
 
 ```bash
-npx thirdweb create --template nft-drop
+npx thirdweb create --template erc721
 ```
 
 ### 1. Deploy An NFT Drop on thirdweb

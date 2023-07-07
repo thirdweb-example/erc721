@@ -1,5 +1,6 @@
 import {
   ConnectWallet,
+  detectContractFeature,
   useActiveClaimConditionForWallet,
   useAddress,
   useClaimConditions,
@@ -23,6 +24,7 @@ import {
   primaryColorConst,
   themeConst,
 } from "./consts/parameters";
+import { ContractWrapper } from "@thirdweb-dev/sdk/dist/declarations/src/evm/core/classes/contract-wrapper";
 
 const urlParams = new URL(window.location.toString()).searchParams;
 const contractAddress = urlParams.get("contract") || contractConst || "";
@@ -155,6 +157,21 @@ export default function Home() {
     activeClaimCondition.data?.maxClaimablePerWallet,
   ]);
 
+  const isOpenEdition = useMemo(() => {
+    if (contractQuery?.contract) {
+      const contractWrapper = (contractQuery.contract as any)
+        .contractWrapper as ContractWrapper<any>;
+
+      const featureDetected = detectContractFeature(
+        contractWrapper,
+        "ERC721SharedMetadata",
+      );
+
+      return featureDetected;
+    }
+    return false;
+  }, [contractQuery.contract]);
+
   const isSoldOut = useMemo(() => {
     try {
       return (
@@ -162,7 +179,7 @@ export default function Home() {
           BigNumber.from(activeClaimCondition.data?.availableSupply || 0).lte(
             0,
           )) ||
-        numberClaimed === numberTotal
+        (numberClaimed === numberTotal && !isOpenEdition)
       );
     } catch (e) {
       return false;
@@ -172,6 +189,7 @@ export default function Home() {
     activeClaimCondition.isSuccess,
     numberClaimed,
     numberTotal,
+    isOpenEdition,
   ]);
 
   const canClaim = useMemo(() => {
@@ -297,7 +315,7 @@ export default function Home() {
                     <div className="h-10 w-24 rounded-full bg-gray-200 dark:bg-gray-700"></div>
                   </div>
                 </div>
-              ) : (
+              ) : isOpenEdition ? null : (
                 <p>
                   <span className="text-lg font-bold tracking-wider text-gray-500 xs:text-xl lg:text-2xl">
                     {numberClaimed}
