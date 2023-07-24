@@ -11,7 +11,6 @@ import {
   chainConst,
   relayerUrlConst,
 } from "./consts/parameters";
-import { Chain, getChainBySlug } from "@thirdweb-dev/chains";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -25,12 +24,10 @@ const biconomyApiId =
 const sdkOptions = getGasless(relayerUrl, biconomyApiKey, biconomyApiId);
 
 const chain = (urlParams.get("chain") && urlParams.get("chain")?.startsWith("{")) ? JSON.parse(String(urlParams.get("chain"))) : urlParams.get("chain") || chainConst;
-const tempChain = getChainBySlug(typeof chain === "string" ? chain : chain.slug);
-const activeChain: Chain | string = typeof chain === "string" ? chain : { ...chain, icon: tempChain.icon };
 
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={activeChain} sdkOptions={sdkOptions}>
+    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions}>
       <Toaster />
       <App />
     </ThirdwebProvider>
