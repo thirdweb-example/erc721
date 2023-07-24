@@ -16,9 +16,7 @@ const container = document.getElementById("root");
 const root = createRoot(container!);
 const urlParams = new URL(window.location.toString()).searchParams;
 
-const chain =
-  (urlParams.get("chain") && JSON.parse(String(urlParams.get("chain")))) ||
-  chainConst;
+const chain = (urlParams.get("chain") && urlParams.get("chain")?.startsWith("{")) ? JSON.parse(String(urlParams.get("chain"))) : urlParams.get("chain") || chainConst;
 
 const relayerUrl = urlParams.get("relayUrl") || relayerUrlConst || "";
 const biconomyApiKey =
