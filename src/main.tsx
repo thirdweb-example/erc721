@@ -13,7 +13,6 @@ import {
   relayerUrlConst,
 } from "./consts/parameters";
 import { getCustomIpfsGateways } from "./utils/getCustomIpfsGateways";
-import { Chain, getChainBySlug } from "@thirdweb-dev/chains";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
@@ -26,26 +25,20 @@ const biconomyApiId =
   urlParams.get("biconomyApiId") || biconomyApiIdConst || "";
 const { gasless } = getGasless(relayerUrl, biconomyApiKey, biconomyApiId);
 
-const ipfsGateways =
-  urlParams.get("customIpfsGateways") || customIpfsGateways.join(",") || "";
-const gatewayUrls = getCustomIpfsGateways(ipfsGateways);
-
 const chain =
   urlParams.get("chain") && urlParams.get("chain")?.startsWith("{")
     ? JSON.parse(String(urlParams.get("chain")))
     : urlParams.get("chain") || chainConst;
-const tempChain = getChainBySlug(
-  typeof chain === "string" ? chain : chain.slug,
-);
-const activeChain: Chain | string =
-  typeof chain === "string" ? chain : { ...chain, icon: tempChain.icon };
+
+const ipfsGateways =
+  urlParams.get("customIpfsGateways") || customIpfsGateways.join(",") || "";
+const gatewayUrls = getCustomIpfsGateways(ipfsGateways);
+
+const sdkOptions = { gasless, gatewayUrls };
 
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider
-      activeChain={activeChain}
-      sdkOptions={{ gasless, gatewayUrls }}
-    >
+    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions}>
       <Toaster />
       <App />
     </ThirdwebProvider>
