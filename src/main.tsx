@@ -10,6 +10,7 @@ import {
   biconomyApiKeyConst,
   chainConst,
   relayerUrlConst,
+  clientIdConst,
 } from "./consts/parameters";
 
 const container = document.getElementById("root");
@@ -25,9 +26,11 @@ const sdkOptions = getGasless(relayerUrl, biconomyApiKey, biconomyApiId);
 
 const chain = (urlParams.get("chain") && urlParams.get("chain")?.startsWith("{")) ? JSON.parse(String(urlParams.get("chain"))) : urlParams.get("chain") || chainConst;
 
+const clientId = urlParams.get("clientId") || clientIdConst || "";
+
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions}>
+    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions} clientId={clientId}>
       <Toaster />
       <App />
     </ThirdwebProvider>
