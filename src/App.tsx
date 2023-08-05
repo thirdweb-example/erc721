@@ -100,6 +100,21 @@ export default function Home() {
     quantity,
   ]);
 
+  const isOpenEdition = useMemo(() => {
+    if (contractQuery?.contract) {
+      const contractWrapper = (contractQuery.contract as any)
+        .contractWrapper as ContractWrapper<any>;
+
+      const featureDetected = detectContractFeature(
+        contractWrapper,
+        "ERC721SharedMetadata",
+      );
+
+      return featureDetected;
+    }
+    return false;
+  }, [contractQuery.contract]);
+
   const maxClaimable = useMemo(() => {
     let bnMaxClaimable;
     try {
@@ -141,7 +156,7 @@ export default function Home() {
     const maxAvailable = BigNumber.from(unclaimedSupply.data || 0);
 
     let max;
-    if (maxAvailable.lt(bnMaxClaimable)) {
+    if (maxAvailable.lt(bnMaxClaimable) && !isOpenEdition) {
       max = maxAvailable;
     } else {
       max = bnMaxClaimable;
@@ -157,21 +172,6 @@ export default function Home() {
     activeClaimCondition.data?.maxClaimableSupply,
     activeClaimCondition.data?.maxClaimablePerWallet,
   ]);
-
-  const isOpenEdition = useMemo(() => {
-    if (contractQuery?.contract) {
-      const contractWrapper = (contractQuery.contract as any)
-        .contractWrapper as ContractWrapper<any>;
-
-      const featureDetected = detectContractFeature(
-        contractWrapper,
-        "ERC721SharedMetadata",
-      );
-
-      return featureDetected;
-    }
-    return false;
-  }, [contractQuery.contract]);
 
   const isSoldOut = useMemo(() => {
     try {
