@@ -11,6 +11,7 @@ import {
   chainConst,
   customIpfsGateways,
   relayerUrlConst,
+  clientIdConst,
 } from "./consts/parameters";
 import { getCustomIpfsGateways } from "./utils/getCustomIpfsGateways";
 
@@ -36,9 +37,11 @@ const gatewayUrls = getCustomIpfsGateways(ipfsGateways);
 
 const sdkOptions = { gasless, gatewayUrls };
 
+const clientId = urlParams.get("clientId") || clientIdConst || "";
+
 root.render(
   <React.StrictMode>
-    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions}>
+    <ThirdwebProvider activeChain={chain} sdkOptions={sdkOptions} clientId={clientId}>
       <Toaster />
       <App />
     </ThirdwebProvider>
