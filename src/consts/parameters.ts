@@ -19,4 +19,10 @@ export const themeConst = "dark";
 export const relayerUrlConst = ""; // OpenZeppelin relayer URL
 export const biconomyApiKeyConst = ""; // Biconomy API key
 export const biconomyApiIdConst = ""; // Biconomy API ID
+
+export const customIpfsGateways: string[] = [
+  // https://<your-custom-getway-one>/ipfs,
+  // https://<your-custom-getway-two>/ipfs,
+];
+
 export const clientIdConst = ""; // Client ID
