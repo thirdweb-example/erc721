@@ -5,9 +5,17 @@
 export const contractConst = "0x436492DBc2E30E56FaC8F2297BD1964833c0687d";
 
 // The name of the chain your contract is deployed to.
-// Provide a string for standard chains, or import one from @thirdweb-dev/chains package.
-// Learn more: https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended
+// For standard chains. (e.g. "mainnet", "rinkeby", "polygon", "mumbai")
+// For custom chains, provide the chain name from thirdweb chain list or import it from thirdweb-dev/chains package.
+// https://thirdweb.com/chains (e.g. "base", "base-goerli")
+// https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended
 export const chainConst = "mumbai";
+
+// It is IMPORTANT to provide your own API key to use the thirdweb SDK and infrastructure.
+// Please ensure that you define the correct domain for your API key from the API settings page.
+// You can get one for free at https://thirdweb.com/create-api-key
+// Learn more here: https://blog.thirdweb.com/changelog/api-keys-to-access-thirdweb-infra
+export const clientIdConst = "";
 
 // Configure the primary color for buttons and other UI elements
 export const primaryColorConst = "blue";
@@ -19,4 +27,3 @@ export const themeConst = "dark";
 export const relayerUrlConst = ""; // OpenZeppelin relayer URL
 export const biconomyApiKeyConst = ""; // Biconomy API key
 export const biconomyApiIdConst = ""; // Biconomy API ID
-export const clientIdConst = ""; // Client ID
