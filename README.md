@@ -32,9 +32,9 @@ Go to the [`parameters.ts`](/src/consts/parameters.ts) and update the following 
 1. `contractConst`: The smart contract address of your NFT drop.
 2. `chainConst`: The name of the chain that your smart contract is deployed to.
 
-> **Note:** If you are using a custom chain, you need to provide the chain name from the [thirdweb chain list](https://thirdweb.com/chains). For example, if you are using the **Base** chain you need to use `base` as the chain name. Which is indicated here: <https://thirdweb.com/base>
+> **Note:** If you are using a custom chain, you need to provide the chain name from the [thirdweb chain list](https://thirdweb.com/chains). For example, if you are using the **Sepolia** chain you need to use `{Sepolia}` as the chain name. Which is indicated here: <https://thirdweb.com/base>
 >
-> Learn more: <https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended>
+> Read: <https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended>
 
 ### 3. Customize the Styling
 
