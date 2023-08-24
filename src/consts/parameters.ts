@@ -5,10 +5,11 @@
 export const contractConst = "0x436492DBc2E30E56FaC8F2297BD1964833c0687d";
 
 // The name of the chain your contract is deployed to.
-// For standard chains. (e.g. "mainnet", "rinkeby", "polygon", "mumbai")
-// For custom chains, provide the chain name from thirdweb chain list or import it from thirdweb-dev/chains package.
-// https://thirdweb.com/chains (e.g. "base", "base-goerli")
-// https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended
+// For standard chains. (e.g. "mainnet", "rinkeby", "polygon", "mumbai", "base")
+// For custom chains, provide the chain name from thirdweb chain list or use the import name from @thirdweb-dev/chains.
+// Read: https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended
+// Chainlist: https://thirdweb.com/chains
+// e.g."{Sepolia}" or "{Gnosis}"
 export const chainConst = "mumbai";
 
 // It is IMPORTANT to provide your own API key to use the thirdweb SDK and infrastructure.
