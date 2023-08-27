@@ -32,9 +32,27 @@ Go to the [`parameters.ts`](/src/consts/parameters.ts) and update the following 
 1. `contractConst`: The smart contract address of your NFT drop.
 2. `chainConst`: The name of the chain that your smart contract is deployed to.
 
-> **Note:** If you are using a custom chain, you need to provide the chain name from the [thirdweb chain list](https://thirdweb.com/chains). For example, if you are using the **Sepolia** chain you need to use `{Sepolia}` as the chain name. Which is indicated here: <https://thirdweb.com/base>
->
-> Read: <https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended>
+If you are using one of thirdweb's [default supported chains](https://portal.thirdweb.com/react/react.thirdwebprovider#default-chains) You can use the chain name as string.
+
+#### Example
+
+```ts
+export const chainConst = "ethereum";
+```
+
+If you are using any other chain, you need to provide the chain object from the `@thirdweb-dev/chains` package to `ThirdwebProvider`'s `activeChain` prop as mentioned [here](https://portal.thirdweb.com/react/react.thirdwebprovider#activechain-recommended).
+
+
+#### Example
+
+```ts
+import { Sepolia } from '@thirdweb-dev/chains';
+
+export const chainConst = Sepolia;
+```
+
+If your chain is not included in the `@thirdweb-dev/chains` package, you can provide the chain information yourself by creating an object as mentioned [here](https://portal.thirdweb.com/react/react.thirdwebprovider#custom-evm-chains)
+
 
 ### 3. Customize the Styling
 
