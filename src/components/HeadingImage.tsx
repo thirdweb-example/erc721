@@ -10,7 +10,7 @@ export const HeadingImage: React.FC<HeadingImage> = ({
   isLoading = true,
 }) => {
   return (
-    <div className="self-start overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-900 xs:h-[11.25rem] xs:w-[11.25rem] lg:mx-auto lg:h-auto lg:w-full lg:self-center">
+    <div className="self-start overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-700 xs:h-[11.25rem] xs:w-[11.25rem] lg:mx-auto lg:h-auto lg:w-full lg:self-center">
       {isLoading ? (
         <div
           role="status"
