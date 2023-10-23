@@ -10,13 +10,13 @@ export const HeadingImage: React.FC<HeadingImage> = ({
   isLoading = true,
 }) => {
   return (
-    <div className="self-start overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-700 xs:h-[11.25rem] xs:w-[11.25rem] lg:mx-auto lg:h-auto lg:w-full lg:self-center">
+    <div className="self-start overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-900 xs:h-[11.25rem] xs:w-[11.25rem] lg:mx-auto lg:h-auto lg:w-full lg:self-center">
       {isLoading ? (
         <div
           role="status"
           className="animate-pulse space-y-8 md:flex md:items-center md:space-x-8 md:space-y-0"
         >
-          <div className="flex items-center justify-center rounded bg-gray-300 dark:bg-gray-700 lg:h-96 lg:w-96">
+          <div className="flex items-center justify-center rounded bg-gray-300 dark:bg-gray-700 xs:h-[11.25rem] xs:w-[11.25rem] lg:mx-auto lg:h-auto lg:w-full lg:self-center">
             <svg
               className="h-full w-full p-24 text-gray-200 lg:p-56"
               xmlns="http://www.w3.org/2000/svg"
