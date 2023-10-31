@@ -48,9 +48,15 @@ export default function Home() {
   const contractQuery = useContract(contractAddress);
   const contractMetadata = useContractMetadata(contractQuery.contract);
   const { toast } = useToast();
-  const theme = (urlParams.get("theme") || themeConst || "light") as
+  let theme = (urlParams.get("theme") || themeConst || "light") as
     | "light"
-    | "dark";
+    | "dark"
+    | "system";
+  if (theme === "system") {
+    theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
   const root = window.document.documentElement;
   root.classList.add(theme);
   const address = useAddress();
