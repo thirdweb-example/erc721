@@ -288,7 +288,7 @@ export default function Home() {
   const clientId = urlParams.get("clientId") || clientIdConst || "";
   if (!clientId) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex items-center justify-center h-full">
         Client ID is required as a query param to use this page.
       </div>
     );
@@ -296,29 +296,27 @@ export default function Home() {
 
   if (!contractAddress) {
     return (
-      <div className="flex h-full items-center justify-center">
+      <div className="flex items-center justify-center h-full">
         No contract address provided
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen w-screen">
+    <div className="w-screen min-h-screen">
       <ConnectWallet className="!absolute !right-4 !top-4" theme={theme} />
       <div className="grid h-screen grid-cols-1 lg:grid-cols-12">
-        <div className="hidden h-full w-full items-center justify-center lg:col-span-5 lg:flex lg:px-12">
+        <div className="items-center justify-center hidden w-full h-full lg:col-span-5 lg:flex lg:px-12">
           <HeadingImage
             src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
             isLoading={isLoading}
           />
         </div>
-        <div className="col-span-1 flex h-full w-full items-center justify-center lg:col-span-7">
-          <div className="flex w-full max-w-xl flex-col gap-4 rounded-xl p-12 lg:border lg:border-gray-400 lg:dark:border-gray-800">
-            <div className="mt-8 flex w-full xs:mb-8 xs:mt-0 lg:hidden">
+        <div className="flex items-center justify-center w-full h-full col-span-1 lg:col-span-7">
+          <div className="flex flex-col w-full max-w-xl gap-4 p-12 rounded-xl lg:border lg:border-gray-400 lg:dark:border-gray-800">
+            <div className="flex w-full mt-8 xs:mb-8 xs:mt-0 lg:hidden">
               <HeadingImage
-                src={
-                  contractMetadata.data?.image || firstNft?.metadata.image || ""
-                }
+                src={contractMetadata.data?.image || firstNft?.metadata.image || ""}
                 isLoading={isLoading}
               />
             </div>
@@ -327,10 +325,10 @@ export default function Home() {
               {isLoading ? (
                 <div
                   role="status"
-                  className="animate-pulse space-y-8 md:flex md:items-center md:space-x-8 md:space-y-0"
+                  className="space-y-8 animate-pulse md:flex md:items-center md:space-x-8 md:space-y-0"
                 >
                   <div className="w-full">
-                    <div className="h-10 w-24 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                    <div className="w-24 h-10 bg-gray-200 rounded-full dark:bg-gray-700"></div>
                   </div>
                 </div>
               ) : isOpenEdition ? null : (
@@ -343,14 +341,14 @@ export default function Home() {
                   </span>
                 </p>
               )}
-              <h1 className="line-clamp-1 text-2xl font-bold xs:text-3xl lg:text-4xl">
+              <h1 className="text-2xl font-bold line-clamp-1 xs:text-3xl lg:text-4xl">
                 {contractMetadata.isLoading ? (
                   <div
                     role="status"
-                    className="animate-pulse space-y-8 md:flex md:items-center md:space-x-8 md:space-y-0"
+                    className="space-y-8 animate-pulse md:flex md:items-center md:space-x-8 md:space-y-0"
                   >
                     <div className="w-full">
-                      <div className="h-8 w-48 rounded-full bg-gray-200 dark:bg-gray-700"></div>
+                      <div className="w-48 h-8 bg-gray-200 rounded-full dark:bg-gray-700"></div>
                     </div>
                     <span className="sr-only">Loading...</span>
                   </div>
@@ -359,12 +357,12 @@ export default function Home() {
                 )}
               </h1>
               {contractMetadata.data?.description ||
-              contractMetadata.isLoading ? (
-                <div className="line-clamp-2 text-gray-500">
+                contractMetadata.isLoading ? (
+                  <div className="text-gray-500 line-clamp-2">
                   {contractMetadata.isLoading ? (
                     <div
                       role="status"
-                      className="animate-pulse space-y-8 md:flex md:items-center md:space-x-8 md:space-y-0"
+                        className="space-y-8 animate-pulse md:flex md:items-center md:space-x-8 md:space-y-0"
                     >
                       <div className="w-full">
                         <div className="mb-2.5 h-2 max-w-[480px] rounded-full bg-gray-200 dark:bg-gray-700"></div>
@@ -389,9 +387,9 @@ export default function Home() {
                   Drop is starting soon. Please check back later.
                 </span>
               ) : (
-                <div className="flex w-full flex-col gap-4">
-                  <div className="flex w-full flex-col gap-4 lg:flex-row lg:items-center lg:gap-4 ">
-                    <div className="flex h-11 w-full rounded-lg border border-gray-400 px-2 dark:border-gray-800 md:w-full">
+                    <div className="flex flex-col w-full gap-4">
+                      <div className="flex flex-col w-full gap-4 lg:flex-row lg:items-center lg:gap-4 ">
+                        <div className="flex w-full px-2 border border-gray-400 rounded-lg h-11 dark:border-gray-800 md:w-full">
                       <button
                         onClick={() => {
                           const value = quantity - 1;
@@ -403,12 +401,12 @@ export default function Home() {
                             setQuantity(value);
                           }
                         }}
-                        className="flex h-full items-center justify-center rounded-l-md px-2 text-center text-2xl disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600"
+                            className="flex items-center justify-center h-full px-2 text-2xl text-center rounded-l-md disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600"
                         disabled={isSoldOut || quantity - 1 < 1}
                       >
                         -
                       </button>
-                      <p className="flex h-full w-full items-center justify-center text-center font-mono dark:text-white lg:w-full">
+                          <p className="flex items-center justify-center w-full h-full font-mono text-center dark:text-white lg:w-full">
                         {!isLoading && isSoldOut ? "Sold Out" : quantity}
                       </p>
                       <button
@@ -467,7 +465,7 @@ export default function Home() {
                         <div role="status">
                           <svg
                             aria-hidden="true"
-                            className="mr-2 h-4 w-4 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
+                                className="w-4 h-4 mr-2 text-gray-200 animate-spin fill-blue-600 dark:text-gray-600"
                             viewBox="0 0 100 101"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
