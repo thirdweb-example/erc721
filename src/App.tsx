@@ -25,7 +25,6 @@ import {
   primaryColorConst,
   themeConst,
 } from "./consts/parameters";
-import { ContractWrapper } from "@thirdweb-dev/sdk/dist/declarations/src/evm/core/classes/contract-wrapper";
 
 const urlParams = new URL(window.location.toString()).searchParams;
 const contractAddress = urlParams.get("contract") || contractConst || "";
@@ -108,8 +107,7 @@ export default function Home() {
 
   const isOpenEdition = useMemo(() => {
     if (contractQuery?.contract) {
-      const contractWrapper = (contractQuery.contract as any)
-        .contractWrapper as ContractWrapper<any>;
+      const contractWrapper = (contractQuery.contract as any).contractWrapper;
 
       const featureDetected = detectContractFeature(
         contractWrapper,
