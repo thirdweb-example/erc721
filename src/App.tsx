@@ -402,7 +402,7 @@ export default function Home() {
                             className="flex items-center justify-center h-full px-2 text-2xl text-center rounded-l-md disabled:cursor-not-allowed disabled:text-gray-500 dark:text-white dark:disabled:text-gray-600"
                         disabled={isSoldOut || quantity - 1 < 1}
                       >
-                        -
+                        ➖
                       </button>
                           <p className="flex items-center justify-center w-full h-full font-mono text-center dark:text-white lg:w-full">
                         {!isLoading && isSoldOut ? "Sold Out" : quantity}
@@ -423,7 +423,7 @@ export default function Home() {
                         }
                         disabled={isSoldOut || quantity + 1 > maxClaimable}
                       >
-                        +
+                        ➕
                       </button>
                     </div>
                     <Web3Button
