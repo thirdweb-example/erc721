@@ -24,7 +24,13 @@ const biconomyApiId =
   urlParams.get("biconomyApiId") || biconomyApiIdConst || "";
 const sdkOptions = getGasless(relayerUrl, biconomyApiKey, biconomyApiId);
 
-const chain = (urlParams.get("chain") && urlParams.get("chain")?.startsWith("{")) ? JSON.parse(String(urlParams.get("chain"))) : urlParams.get("chain") || chainConst;
+const _chain = urlParams.get("chain");
+const chain = 
+  (_chain && _chain?.startsWith("{")) 
+    ? JSON.parse(String(_chain)) 
+    : _chain?.startsWith("%7B") 
+    ? JSON.parse(decodeURIComponent(_chain)) 
+    : _chain || chainConst;
 
 const clientId = urlParams.get("clientId") || clientIdConst || "";
 
